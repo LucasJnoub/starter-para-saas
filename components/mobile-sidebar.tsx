@@ -14,7 +14,7 @@ export default function MobileSideBar({ apiLimitCount = 0, isPro = false }: Mobi
   const [isMounted, setIsMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggleSidebar = () => {
+   const handleToggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 

@@ -96,11 +96,11 @@ const routes = [
 interface SideBarProps {
   apiLimitCount: number
   isPro: boolean
-  onMenuItemClick: () => void
+  onMenuItemClick?: () => void
   
 }
 
-export default function SideBar({ apiLimitCount, isPro,  onMenuItemClick}: SideBarProps) {
+export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBarProps) {
   const pathname = usePathname();
   return (
     <div className=' py-4 flex-col h-full bg-[#111827] text-white'>
