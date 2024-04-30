@@ -1,7 +1,12 @@
+import ReplicateComponent from '@/components/replicate'
+import UploadPage from '@/components/upload-page'
 import React from 'react'
 
-export default function imagePage() {
+export default  async function imagePage() {
   return (
-    <div>Image Page</div>
+    <div>
+      {/* <ReplicateComponent></ReplicateComponent> */}
+      <UploadPage></UploadPage>
+    </div>
   )
 }

@@ -5,11 +5,13 @@ import { ptBR } from "@clerk/localizations";
 import "./globals.css";
 import ModalProvider from "@/components/modal-provider";
 import { ToasterProvider } from "@/components/toast-provider";
+import { EdgeStoreProvider } from '../lib/edgestore';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Genius",
-  description: "AI Plataform  ",
+  title: "BgPretty",
+  description: "AI Product background generator",
   manifest:"/manifest.json"
 };
 
@@ -26,7 +28,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <ToasterProvider/>
           <ModalProvider/>
-          {children}
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
           </body>
       </html>
     </ClerkProvider>  

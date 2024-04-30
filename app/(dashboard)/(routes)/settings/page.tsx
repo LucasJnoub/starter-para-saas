@@ -15,8 +15,8 @@ export default async function SettingsPage() {
         iconColor="text-gray-700"
         bgColor="bg-gray-700/10"        
       />
-      <div className="px-4 lg:px-8 space-y-4 border border-solid-black sm:flex flex-col ">
-      <div className="text-muted-foreground text-sm flex flex-col gap-2 border border solid-blue text-center">
+      <div className="px-4 lg:px-8 space-y-4 sm:flex flex-col">
+        <div className="text-muted-foreground text-sm flex flex-col gap-2">
           {isPro? 'You are currently subscribed to Genius Pro.' : 'You are currently not subscribed to Genius Pro.'}
           <SubscriptionSButton isPro={isPro} />
         </div>  

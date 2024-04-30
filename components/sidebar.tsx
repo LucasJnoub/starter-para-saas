@@ -54,34 +54,10 @@ const montserrat = Montserrat({
 // ];
 const routes = [
   {
-    label: 'Dashboard',
-    icon: LayoutDashboard,
-    href: '/dashboard',
-    color: ' '
-  },
-  {
-    label: '',
-    icon: LayoutDashboard,
-    href: '',
-    color: ' '
-  },
-  {
-    label: '',
-    icon: LayoutDashboard,
-    href: '',
-    color: ' '
-  },
-  {
-    label: '',
-    icon: LayoutDashboard,
-    href: '',
-    color: ' '
-  },
-  {
-    label: '',
-    icon: LayoutDashboard,
-    href: '',
-    color: ' '
+    label: 'Background Generator',
+    icon: ImageIcon,
+    href: '/image',
+    color: 'text-pink-700'
   },
   {
     label: 'Settings',
@@ -107,15 +83,17 @@ export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBa
       <div className="px-3 py-2 flex-1">
         <Link href='/dashboard' className='flex items-center pl-3 mb-14'>
           <div className="relative w-8 h-8 mr-4">
-            <Image
+            {/* <Image
               fill
               alt='logo'
               src='/logo.png'
-            />
+            /> */}
           </div>
           <h1 className={cn("text-2xl font-bold", montserrat.className)}>
-            Genius
-          </h1>
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500">
+      BgPretty
+    </span>
+  </h1>
         </Link>
 
         <div className="space-y-1">

@@ -10,6 +10,17 @@ const config = {
   workboxOptions: {
     disableDevLogs: true,
   },
+
+  images: {
+    domains: ['replicate.delivery'],
+  },
+
+  webpack: (config) => {
+    config.externals.push({
+      'node:crypto': 'commonjs crypto',
+    });
+    return config;
+  },
 };
 
 const nextConfig = withPWA({
