@@ -9,7 +9,6 @@ const settingsUrl = absoluteUrl("/settings");
 
 export async function GET(request: any) {
 
-  // const proMensal = env.NEXT_PUBLIC_PRO_MENSAL;
 
   try {
     const { userId } = auth();
@@ -47,17 +46,7 @@ export async function GET(request: any) {
         customer_email: user.emailAddresses[0].emailAddress,
         line_items: [
           {
-            // price_data: {
-            //   currency: "USD",
-            //   product_data: {
-            //     name: isMonthly?"Genius Business Monthly": "Genius Business Yearly",
-            //     description: "For large organizations with extensive social media needs",
-            //   },
-            //   unit_amount: isMonthly ? 5000: 50000, // Preço do plano Business
-            //   recurring: {
-            //     interval: isMonthly ? "month" : "year",
-            //   },
-            price: isMonthly ?  env.PRICE_ID_BUSINESS_MENSAL : env.PRICE_ID_BUSINESS_ANUAL, // Substitua com o ID do preço real
+            price: isMonthly ?  env.PRICE_ID_BUSINESS_MENSAL : env.PRICE_ID_BUSINESS_ANUAL, 
             quantity: 1,
             },
         ],
@@ -75,19 +64,7 @@ export async function GET(request: any) {
         customer_email: user.emailAddresses[0].emailAddress,
         line_items: [
           {
-            // price_data: { 
-            //   currency: "USD",
-            //   product_data: {
-            //     name: isMonthly ? "Genius Pro Monthly" : "Genius Pro yearly",
-            //     description: "Unlimited AI Generations",
-            //   },
-            //   unit_amount: isMonthly ? 1800 : 18000,
-            //   recurring: {
-            //     interval: isMonthly ? "month" : "year",
-            //   },
-            // }, 
-            // quantity: 1,
-            price: isMonthly ? env.PRICE_ID_PRO_MENSAL : env.PRICE_ID_PRO_ANUAL, // Substitua com o ID do preço real
+            price: isMonthly ? env.PRICE_ID_PRO_MENSAL : env.PRICE_ID_PRO_ANUAL, 
             quantity: 1,
           },
         ],

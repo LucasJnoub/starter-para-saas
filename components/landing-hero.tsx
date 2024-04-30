@@ -13,7 +13,7 @@ export const LandingHero = ()=>{
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
           options={{
-            strings:['ChatBot', 'Music Generation', 'Video Generation', 'Code Generation', 'Image Generation'],
+            strings:['Product Background Generation'],
             autoStart:true,
             loop:true
           }}
@@ -23,12 +23,12 @@ export const LandingHero = ()=>{
       </div>
 
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        Create content using AI 10x faster.
+        Create amazing product background images
       </div>
 
       <div className="">
         <Link
-        href={isSignedIn? "/dashboard" : "/sign-up"}
+        href={isSignedIn? "/image" : "/sign-up"}
         >
           <Button variant={"premium"} className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
             Start Generating For Free

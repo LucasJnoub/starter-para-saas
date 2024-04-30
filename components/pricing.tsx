@@ -55,7 +55,7 @@ const PricingPage = () => {
   const handleFreeClick = async () => {
     if (user) {
       // Se o usuário estiver logado, redirecione para a rota dashboard
-      router.push("/dashboard");
+      router.push("/image");
     } else {
       // Se o usuário não estiver logado, redirecione para a página de signup
       router.push("/signup");

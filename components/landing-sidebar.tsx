@@ -20,7 +20,7 @@ export default function LandingSideBar() {
   return (
     <div className=' py-4 flex-col h-full bg-[#111827] text-white'>
       <div className="px-3 py-2 flex-1">
-        <Link href='/dashboard' className='flex items-center pl-3 mb-14'>
+        <Link href='/image' className='flex items-center pl-3 mb-14'>
           <div className="relative w-8 h-8 mr-4">
             <Image
               fill
@@ -40,7 +40,7 @@ export default function LandingSideBar() {
         {/* Botões Sign-in e Sign-up */}
         <div className="mt-auto">
           <Link
-            href={isSignedIn ? "/dashboard" : "/sign-in"}
+            href={isSignedIn ? "/image" : "/sign-in"}
             className={cn(
               'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
               isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400'
@@ -52,7 +52,7 @@ export default function LandingSideBar() {
             </div>
           </Link>
           <Link
-            href={isSignedIn ? "/dashboard" : "/sign-up"}
+            href={isSignedIn ? "/image" : "/sign-up"}
             className={cn(
               'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
               isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400' 
