@@ -141,7 +141,7 @@ export default function UploadPage() {
       } 
       <Button
         variant="destructive"
-        onClick={() => downloadImage(userPhotos[0].url)}
+        onClick={() => downloadImage(userPhotos)}
         className="w-[200px]"
       >
         Download Image
