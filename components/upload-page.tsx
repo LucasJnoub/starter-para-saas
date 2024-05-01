@@ -20,7 +20,7 @@ export default function UploadPage() {
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState<string>();
   const [output, setOutput] = useState<string>("");
-  const [userPhotos, setUserPhotos] = useState<{ url: string }[]>([]);
+  const [userPhotos, setUserPhotos] = useState<string>();
   const [prompt, setPrompt] = useState<string>("");
   const { edgestore } = useEdgeStore();
 
@@ -119,10 +119,10 @@ export default function UploadPage() {
         Generate          
       </Button>
     
-      {!isLoading && userPhotos && userPhotos[0].url && (
+      {!isLoading && userPhotos &&(
   <div className="">
     
-      <Image alt="user photo" width={350} height={350} src={userPhotos[0].url} priority={true} />
+      <Image alt="user photo" width={350} height={350} src={userPhotos} priority={true} />
   </div>
     )}
         

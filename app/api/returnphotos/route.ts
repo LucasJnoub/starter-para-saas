@@ -15,8 +15,11 @@ export async function GET(request: Request) {
         },
         orderBy: {
             createdAt: 'desc'
+        },
+        select: {
+            url: true
         }
     })
 
-    return new NextResponse(JSON.stringify(getUserPhotos), { status: 200 });
+    return new NextResponse(JSON.stringify(getUserPhotos?.url), { status: 200 });
 }
