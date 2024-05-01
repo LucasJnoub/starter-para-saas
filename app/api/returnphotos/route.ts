@@ -9,9 +9,12 @@ export async function GET(request: Request) {
 
     if(!userId || !user) return new NextResponse("Unauthorized", { status: 401 });
 
-    const getUserPhotos = await prisma.replicateUrl.findMany({
+    const getUserPhotos = await prisma.replicateUrl.findFirst({
         where: {
             userId: userId
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     })
 

@@ -12,7 +12,7 @@ const replicate = new Replicate({
 export async function POST(req: Request) {
   const body = await req.json()
   const prompt = body.prompt;
-  const prompt1 = "a modern sofa in a contemporary living room, stylish decor"
+  // const prompt1 = "a modern sofa in a contemporary living room, stylish decor"
   const imgUrl = body.imgUrl;
   const {userId} =  auth();
   const user = await currentUser();
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       input: {
         seed: 24603,
         image: imgUrl,
-        prompt: prompt1,
+        prompt: prompt,
         img_size: "1024, 1024",
         apply_img: false,
         scheduler: "K_EULER",
