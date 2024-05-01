@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prismadb from "@/lib/prismadb";
+import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { auth, currentUser } from "@clerk/nextjs";
@@ -19,7 +19,7 @@ export async function GET(request: any) {
 
     if (!userId || !user) return new NextResponse("Unauthorized", { status: 401 });
 
-    const userSubscription = await prismadb.userSubscritpion.findUnique({
+    const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
         userId,
       },

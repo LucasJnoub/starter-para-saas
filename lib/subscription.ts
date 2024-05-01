@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import prismadb from "./prismadb";
+import prisma from "./prisma";
 
 const DAY_IN_MS = 86_400_000
 
@@ -11,7 +11,7 @@ export const checkSubscription = async ()=>{
     return false;
   }
 
-  const userSubscription = await prismadb.userSubscritpion.findUnique({
+  const userSubscription = await prisma.userSubscritpion.findUnique({
     where:{
       userId:userId
     },

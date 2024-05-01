@@ -1,7 +1,7 @@
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import prismadb from "@/lib/prismadb";
+import prisma from "@/lib/prisma";
 import Stripe from "stripe";
 
 
@@ -26,7 +26,7 @@ export async function POST(req:Request){
       return new Response("Missing userId in session metadata", {status: 400});
     }
     
-    await prismadb.userSubscritpion.create({
+    await prisma.userSubscritpion.create({
       data:{
         userId: session.metadata.userId,
         stripeSubscriptionId: subscription.id,
@@ -44,7 +44,7 @@ export async function POST(req:Request){
       session.subscription as string
       );
 
-      await prismadb.userSubscritpion.update({
+      await prisma.userSubscritpion.update({
         where:{
           stripeSubscriptionId: subscription.id
         },

@@ -1,25 +1,23 @@
 // app/api/predictions/route.ts
+import { NextResponse } from "next/server";
 import Replicate from "replicate";
+import prisma from "@/lib/prisma";
+import { auth, currentUser } from "@clerk/nextjs";
+
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
 export async function POST(req: Request) {
-  const data = await req.formData();
-  const prompt = data.get("prompt")?.toString();
+  const body = await req.json()
+  const prompt = body.prompt;
+  const prompt1 = "a modern sofa in a contemporary living room, stylish decor"
+  const imgUrl = body.imgUrl;
+  const {userId} =  auth();
+  const user = await currentUser();
 
-  const input = {
-    seed: 24603,
-    image: "https://replicate.delivery/pbxt/JX7yjB7jAgeCC1tUmWUUZlWg3IDWW9vLqIjwqWOlj9p6zyyn/sofa.png",
-    prompt: "a modern sofa in a contemporary living room, stylish decor",
-    apply_img: false,
-    product_fill: "80",
-    condition_scale: 0.8,
-    negative_prompt: "",
-    num_refine_steps: 20
-};
-
+  if(!userId || !user) return new NextResponse("Unauthorized", { status: 401 });
 
   if (!process.env.REPLICATE_API_TOKEN) {
     throw new Error(
@@ -27,47 +25,47 @@ export async function POST(req: Request) {
     );
   }
 
-  // const prediction = await replicate.predictions.create({
-  //   version: "9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
-  //   input: { prompt },
-  // });
-
-  const prediction = await replicate.run("catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359", { input });
-
-
-  if (prediction?.error) {
-    return new Response(JSON.stringify({ detail: prediction.error.detail }), {
-      status: 500,
-    });
+    const output = await replicate.run(
+    "catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
+    {
+      input: {
+        seed: 24603,
+        image: imgUrl,
+        prompt: prompt1,
+        img_size: "1024, 1024",
+        apply_img: false,
+        scheduler: "K_EULER",
+        product_fill: "80",
+        guidance_scale: 7.5,
+        condition_scale: 0.8,
+        negative_prompt: "",
+        num_refine_steps: 20,
+        num_inference_steps: 40
+      }
+    }
+    );
+    return new NextResponse(JSON.stringify(output), { status: 200 });
   }
 
-  return new Response(JSON.stringify(prediction), { status: 201 });
-}
 
-// export async function GET(
-//   request: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   const prediction = await replicate.predictions.get(params.id);
 
-//   if (prediction?.error) {
-//     return new Response(JSON.stringify({ detail: prediction.error.detail }), {
-//       status: 500,
-//     });
+// export async function GET(req: Request) {
+//   const page = await replicate.predictions.list();
+//   console.log(page.results)
+//   return new NextResponse(JSON.stringify(page.results), { status: 200 });
+
+
+// }
+// export async function GET(req: Request) {
+//   const { searchParams } = new URL(req.url);
+//   const predictionId = searchParams.get("predictionId");
+
+//   if (!predictionId) {
+//     return new NextResponse("Missing predictionId", { status: 400 });
 //   }
 
-//   return new Response(JSON.stringify(prediction), { status: 200 });
+//   const prediction = await replicate.predictions.get(predictionId);
+//   return new NextResponse(JSON.stringify(prediction.output), { status: 200 });
+
+
 // }
-export async function GET(
-  request: Request
-) {
-  const prediction = await replicate.predictions.list();
-
-  if (prediction?.error) {
-    return new Response(JSON.stringify({ detail: prediction.error.detail }), {
-      status: 500,
-    });
-  }
-
-  return new Response(JSON.stringify(prediction), { status: 200 });
-}

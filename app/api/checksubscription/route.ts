@@ -1,4 +1,4 @@
-import prismadb from "@/lib/prismadb";
+import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
@@ -12,7 +12,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const userSubscription = await prismadb.userSubscritpion.findUnique({
+    const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
         userId,
       },

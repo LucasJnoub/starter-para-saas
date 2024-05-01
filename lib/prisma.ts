@@ -1,34 +1,19 @@
-// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-// let prisma: PrismaClient;
+declare global {
+  var prisma: PrismaClient | undefined;
+}
 
-// if (process.env.NODE_ENV === 'production') {
-//   prisma = new PrismaClient({
-//     datasources: {
-//       db: {
-//         url: process.env.DATABASE_URL,
-//         // Defina o tamanho da pool de conexões
-//         // Consulte a documentação do Prisma para obter mais informações sobre estas opções: https://www.prisma.io/docs/concepts/components/prisma-client/pooling#configuring-the-pool
-//         config: {
-//           max: 20,
-//           min: 2,
-//           idleTimeoutMillis: 10000,
-//           connectionTimeoutMillis: 10000,
-//         },
-//       },
-//     },
-//   });
-// } else {
-//   if (!global.prisma) {
-//     global.prisma = new PrismaClient({
-//       datasources: {
-//         db: {
-//           url: process.env.DATABASE_URL,
-//         },
-//       },
-//     });
-//   }
-//   prisma = global.prisma;
-// }
+let prisma: PrismaClient;
 
-// export default prisma;
+if (process.env.NODE_ENV === 'production') {
+  prisma = globalThis.prisma || new PrismaClient();
+  globalThis.prisma = prisma;
+} else {
+  if (!globalThis.prisma) {
+    globalThis.prisma = new PrismaClient();
+  }
+  prisma = globalThis.prisma;
+}
+
+export default prisma;
