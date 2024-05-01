@@ -1,11 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import { Button } from './ui/button';
 import { useEdgeStore } from '@/lib/edgestore';
 import { SingleImageDropzone } from './upload-component/SingleDropZone';
 import axios from 'axios';
 import Image from 'next/image';
+import Loading from './loading';
+import ClipLoader from "react-spinners/ClipLoader";
+import BarLoader from "react-spinners/BarLoader";
+import FadeLoader from "react-spinners/FadeLoader";
+import RotateLoader from "react-spinners/RotateLoader";
+import HashLoader	 from  "react-spinners/HashLoader";
+import SyncLoader	 from  "react-spinners/SyncLoader";
+
 
 export default function UploadPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +68,11 @@ export default function UploadPage() {
     uploadFile();
   }, [file]);
 
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "black",
+  };
   // Função para baixar a imagem
   const downloadImage = (imageUrl) => {
     fetch(imageUrl)
@@ -83,13 +96,29 @@ export default function UploadPage() {
     }
   };
 
+  const handlerNull = () => {
+    
+  }
   return (
     <div className="flex flex-col items-center m-6 gap-4">
       <SingleImageDropzone width={350} height={200} value={file} onChange={(file: any) => { setFile(file); }} />
+
+      <div className="">
       <input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Here goes your prompt" className="border border-green-300 rounded-md p-2 min-w-[350px]  h-[50px] text-center" />
-      <Button variant={"premium"} onClick={handleOutput} className='w-[350px]'>
-        Generate
+      
+      </div>
+      {<SyncLoader	
+      color={"#ccc"}
+      loading={isLoading}
+      cssOverride={override}
+      aria-label="Loading Spinner"
+      data-testid="barloader"
+      size={10}
+      ></SyncLoader>}
+      <Button variant={"premium"} onClick={isLoading ? handlerNull : handleOutput} className='w-[350px]'>
+        Generate          
       </Button>
+    
       {!isLoading && userPhotos && userPhotos.url && (
   <div className="">
     
