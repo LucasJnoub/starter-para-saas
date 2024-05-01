@@ -20,7 +20,7 @@ export default function UploadPage() {
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState<string>();
   const [output, setOutput] = useState<string>("");
-  const [userPhotos, setUserPhotos] = useState([]);
+  const [userPhotos, setUserPhotos] = useState<{ url: string }[]>([]);
   const [prompt, setPrompt] = useState<string>("");
   const { edgestore } = useEdgeStore();
 
@@ -74,7 +74,7 @@ export default function UploadPage() {
     borderColor: "black",
   };
   // Função para baixar a imagem
-  const downloadImage = (imageUrl) => {
+  const downloadImage = (imageUrl:any) => {
     fetch(imageUrl)
       .then(response => response.blob())
       .then(blob => {
@@ -119,10 +119,10 @@ export default function UploadPage() {
         Generate          
       </Button>
     
-      {!isLoading && userPhotos && userPhotos.url && (
+      {!isLoading && userPhotos && userPhotos[0].url && (
   <div className="">
     
-      <Image alt="user photo" width={350} height={350} src={userPhotos.url} priority={true} />
+      <Image alt="user photo" width={350} height={350} src={userPhotos[0].url} priority={true} />
   </div>
     )}
         
@@ -141,7 +141,7 @@ export default function UploadPage() {
       } 
       <Button
         variant="destructive"
-        onClick={() => downloadImage(userPhotos?.url)}
+        onClick={() => downloadImage(userPhotos[0].url)}
         className="w-[200px]"
       >
         Download Image
