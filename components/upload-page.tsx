@@ -26,11 +26,12 @@ export default function UploadPage() {
 
   const handleOutput = async () => {
     try {
+      if(prompt !== "")
       setIsLoading(true)
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data;
-      setIsLoading(false)
       const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
+      setIsLoading(false)
     } catch (error) {
       console.log("Failed to create prediction " + error);
     }
