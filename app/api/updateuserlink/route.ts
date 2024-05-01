@@ -17,7 +17,6 @@ export async function POST(req: Request) {
       userId: userId,
       url: photoUrl,
       createdAt: new Date(),
-      updatedAt: new Date(),
     },
   });
 

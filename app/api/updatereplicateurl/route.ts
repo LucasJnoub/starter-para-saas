@@ -22,7 +22,6 @@ export async function POST(request: Request) {
         userId: userId,
         url: replicateUrl,
         createdAt: new Date(),
-        updatedAt: new Date(),
       }
     })
 
