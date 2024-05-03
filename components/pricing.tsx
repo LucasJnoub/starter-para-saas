@@ -58,7 +58,7 @@ const PricingPage = () => {
       router.push("/image");
     } else {
       // Se o usuário não estiver logado, redirecione para a página de signup
-      router.push("/signup");
+      router.push("/sign-up");
     }
   };
   
