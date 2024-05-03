@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { auth, currentUser } from "@clerk/nextjs";
 import { env } from "process";
-
+import axios from "axios";
 const settingsUrl = absoluteUrl("/settings");
 
 export const dynamic = 'force-dynamic'

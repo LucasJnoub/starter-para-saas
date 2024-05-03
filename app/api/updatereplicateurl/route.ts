@@ -1,13 +1,15 @@
 import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-
+import axios from "axios";
 export async function POST(request: Request) {
     const body = await request.json();
     const replicateUrl = body.replicateUrl;
     
     const {userId} = auth();
 
+    const checkUserSubscription:any = axios.get('/checksubscription');
+    if (checkUserSubscription?.response?.status === 403) return new NextResponse("Forbidden", { status: 403 });
     if(!userId || !currentUser) return new NextResponse("Unauthorized", { status: 401 });
 
 

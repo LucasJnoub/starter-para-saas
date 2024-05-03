@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, CSSProperties } from 'react';
+import React, {createContext, useContext,useState, useEffect, CSSProperties } from 'react';
 import { Button } from './ui/button';
 import { useEdgeStore } from '@/lib/edgestore';
 import { SingleImageDropzone } from './upload-component/SingleDropZone';
 import axios from 'axios';
 import Image from 'next/image';
-import Loading from './loading';
-import ClipLoader from "react-spinners/ClipLoader";
-import BarLoader from "react-spinners/BarLoader";
-import FadeLoader from "react-spinners/FadeLoader";
-import RotateLoader from "react-spinners/RotateLoader";
-import HashLoader	 from  "react-spinners/HashLoader";
 import SyncLoader	 from  "react-spinners/SyncLoader";
+import { useProModal } from '@/hooks/user-pro-modal';
 
 
 export default function UploadPage() {
@@ -23,19 +18,28 @@ export default function UploadPage() {
   const [userPhotos, setUserPhotos] = useState<string>();
   const [prompt, setPrompt] = useState<string>("");
   const { edgestore } = useEdgeStore();
+  const [isProModalOpen, setIsProModalOpen] = useState(false);
+  
+  const proModal = useProModal();
 
   const handleOutput = async () => {
     try {
-      // if(prompt !== "")
-      setIsLoading(true)
+      const checkSubscription = await axios.get("api/checksubscription")
+      setIsLoading(true)      
+      
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data;
       setIsLoading(false)
       const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
-    } catch (error) {
+    } catch (error:any) {
+        if(error?.response?.status === 403)
+        {
+          proModal.onOpen();
+        }
       console.log("Failed to create prediction " + error);
     }
   }
+
 
   const getAllPhotos = async () => {
     try {
@@ -86,6 +90,7 @@ export default function UploadPage() {
       })
       .catch(error => console.error('Error downloading image:', error));
   };
+
 
   const checkImageExists = async (url:any) => {
     try {

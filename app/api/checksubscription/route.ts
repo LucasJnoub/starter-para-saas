@@ -19,7 +19,7 @@ export async function GET(req: Request) {
     });
 
     if (!userSubscription || !userSubscription.stripeSubscriptionId) {
-      return new NextResponse("User subscription not found", { status: 404 });
+      return new NextResponse("User subscription not found", { status: 403 });
     }
 
     const checkUserSubscription = await stripe.subscriptions.retrieve(
@@ -41,6 +41,6 @@ export async function GET(req: Request) {
     return new NextResponse(JSON.stringify({ plan }), { status: 200 });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse("Forbidden", { status: 403 });
   }
 }
