@@ -20,6 +20,11 @@ export async function GET(request: any) {
 
     if (!userId || !user) return new NextResponse("Unauthorized", { status: 401 });
 
+    const checkSubscription = axios.get("api/checksubscription");
+    if((await checkSubscription).data != '200'){
+      return new NextResponse("No plan", { status: 403 });
+    }
+
     const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
         userId,
