@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { auth, currentUser } from "@clerk/nextjs";
 import { env } from "process";
-import axios from "axios";
+
 const settingsUrl = absoluteUrl("/settings");
 
 export const dynamic = 'force-dynamic'
@@ -19,8 +19,6 @@ export async function GET(request: any) {
     const isBusiness = searchParams.get("isBusiness") === "true"; // Novo parâmetro para verificar se é o plano Business
 
     if (!userId || !user) return new NextResponse("Unauthorized", { status: 401 });
-
-  
 
     const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
