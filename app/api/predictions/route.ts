@@ -26,10 +26,10 @@ export async function POST(req: Request) {
     );
   }
 
-  const checkSubscription = axios.get("api/checksubscription");
-  if((await checkSubscription).data != '200'){
-    return new NextResponse("No plan", { status: 403 });
-  }
+  // const checkSubscription = axios.get("api/checksubscription");
+  // if((await checkSubscription).data != '200'){
+  //   return new NextResponse("No plan", { status: 403 });
+  // }
 
     const output = await replicate.run(
     "catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
