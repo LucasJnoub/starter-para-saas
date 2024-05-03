@@ -14,7 +14,7 @@ export async function GET(req: Request) {
   try {
     const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
-        userId:userId
+        userId,
       },
     });
 
