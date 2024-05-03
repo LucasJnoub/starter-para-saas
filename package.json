@@ -44,7 +44,7 @@
     "react-uploader": "^3.43.0",
     "replicate": "^0.26.0",
     "stream-browserify": "^3.0.0",
-    "stripe": "^15.0.0",
+    "stripe": "^15.5.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "typewriter-effect": "^2.21.0",

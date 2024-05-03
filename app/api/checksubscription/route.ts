@@ -14,12 +14,12 @@ export async function GET(req: Request) {
   try {
     const userSubscription = await prisma.userSubscritpion.findUnique({
       where: {
-        userId,
+        userId:userId
       },
     });
 
     if (!userSubscription || !userSubscription.stripeSubscriptionId) {
-      return new NextResponse("User subscription not found", { status: 403 });
+      return new NextResponse("User subscription not found", { status: 404 });
     }
 
     const checkUserSubscription = await stripe.subscriptions.retrieve(
@@ -38,6 +38,7 @@ export async function GET(req: Request) {
     if(priceId == process.env.PRICE_ID_BUSINESS_MENSAL)plan='business-mensal'
     if(priceId == process.env.PRICE_ID_BUSINESS_ANUAL)plan='business-anual'
 
+    if(!plan) return new NextResponse("Forbidden", { status: 403 });
     return new NextResponse(JSON.stringify({ plan }), { status: 200 });
   } catch (error) {
     console.error(error);
