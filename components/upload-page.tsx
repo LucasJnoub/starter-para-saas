@@ -24,9 +24,8 @@ export default function UploadPage() {
 
   const handleOutput = async () => {
     try {
-      const checkSubscription = await axios.get("api/checksubscription")
       setIsLoading(true)      
-      
+      const checkSubscription = await axios.get("api/checksubscription")  
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data;
       setIsLoading(false)
@@ -34,6 +33,7 @@ export default function UploadPage() {
     } catch (error:any) {
         if(error?.response?.status === 403)
         {
+          setIsLoading(false)
           proModal.onOpen();
         }
       console.log("Failed to create prediction " + error);
