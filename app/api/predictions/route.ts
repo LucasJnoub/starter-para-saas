@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import Replicate from "replicate";
 import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs";
+import axios from "axios";
 
 
 const replicate = new Replicate({
@@ -23,6 +24,11 @@ export async function POST(req: Request) {
     throw new Error(
       "The REPLICATE_API_TOKEN environment variable is not set. See README.md for instructions on how to set it."
     );
+  }
+
+  const checkSubscription = axios.get("api/checksubscription");
+  if((await checkSubscription).data != '200'){
+    return new NextResponse("No plan", { status: 403 });
   }
 
     const output = await replicate.run(
