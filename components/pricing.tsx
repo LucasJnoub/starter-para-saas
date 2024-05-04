@@ -17,56 +17,39 @@ const PricingPage = () => {
   const router = useRouter();
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get("/api/checksubscription");
-        if (response.status === 200) {
-          const data = await response.data;
-          setUserPlan(data.plan);
-          setLoading(false);
-        } else {
-          setUserPlan(null);
-          setLoading(false);
-          console.log("Failed to fetch user subscription. Status code:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching user subscription:", error);
-        setUserPlan(null);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await axios.get("/api/checksubscription");
+  //       if (response.status === 200) {
+  //         const data = await response.data;
+  //         setUserPlan(data.plan);
+  //         setLoading(false);
+  //       } else {
+  //         setUserPlan(null);
+  //         setLoading(false);
+  //         console.log("Failed to fetch user subscription. Status code:", response.status);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user subscription:", error);
+  //       setUserPlan(null);
+  //       setLoading(false);
+  //     }
+  //   };
   
-    fetchData();  
-  }, []);
-  
-
-  const handleToggle = () => {
-    setIsAnnual(!isAnnual);
-    setIsMonthly(!isMonthly);
-  };
-
-  const handleBusinessClick = () => {
-    setIsBusiness(true);
-    handleOnClick(true);
-  };
-
-  const handleFreeClick = async () => {
-    if (user) {
-      // Se o usuário estiver logado, redirecione para a rota dashboard
-      router.push("/image");
-    } else {
-      // Se o usuário não estiver logado, redirecione para a página de signup
-      router.push("/sign-up");
-    }
-  };
+  //   fetchData();  
+  // }, []);
   
 
-  const handleOnClick = async (isBusiness = false) => {
+
+
+
+  const handleOnClick = async (planTitle:string) => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/stripe?isAnnual=${isMonthly}&isBusiness=${isBusiness}`);
+      const response = await axios.get(`/api/stripe?plan=${planTitle}`);
+      // const response = await axios.get(`/api/stripe?isAnnual=${isMonthly}&isBusiness=${isBusiness}`);
       window.location.href = response.data.url;
     } catch (error) {
       console.error(error);
@@ -78,28 +61,28 @@ const PricingPage = () => {
   
   const pricingCards = [
     {
-      title: 'Free',
-      description: 'Experimente o BgPretty e crie backgrounds de produtos com IA para até 10 imagens por mês. Sem necessidade de cartão de crédito.',
-      price: 0,
-      period: 'por mês',
-      features: ['10 Backgrounds de IA', 'Acesso a templates básicos', 'Suporte via fórum', 'Visualizações de galeria e lista'],
+      title: 'Pacote Inicial',
+      description: 'Perfeito para quem está começando e precisa de backgrounds simples e eficientes.',
+      price: '7',
+      features: [
+        'Até 7 fotos geradas',
+        'Backgrounds Personalizados',
+        'Sem suporte premium'
+      ],
       variant: 'ghost',
-      handleClick: handleFreeClick,
-      buttonText: user ? "Ir para o dashboard" : "Inscrever-se",
+      handleClick: handleOnClick,
+      isBusiness: false,
+      buttonText: "Atualizar",
+      priceId :'i'
     },
     {
-      title: 'Pro',
-      description: 'Para profissionais e pequenas equipes; criação ilimitada de backgrounds, mais templates e suporte.',
-      price: isAnnual ? '180' : '18',
-      period: isAnnual ? 'por ano' : 'por mês',
+      title: 'Pacote Profissional',
+      description: 'Ideal para pequenos negócios e empreendedores que querem backgrounds mais elaborados.',
+      price: '10',
       features: [
-        'Templates Premium (R$24/mês cada)',
-        'Usuários Adicionais (R$30/mês cada)',
-        'Relatórios de Analytics',
-        'Domínio Personalizado',
-        'Posts Agendados Ilimitados',
-        'Agendamento em Massa',
-        'Link na Bio',
+        'Até 10 fotos geradas',
+        'Backgrounds personalizados',
+        'Suporte premium'
       ],
       variant: 'premium',
       handleClick: handleOnClick,
@@ -107,24 +90,24 @@ const PricingPage = () => {
       buttonText: "Atualizar",
       titleColor: 'text-[#A655F7]',
       priceColor: "text-[#38B2AC]",
+      priceId :'p'
+
     },
     {
-      title: 'Business',
-      description: 'Para organizações maiores com necessidades extensas de mídia social; postagem ilimitada, analytics avançado, suporte prioritário e mais.',
-      price: isAnnual ? '500' : '50',
-      period: isAnnual ? 'por ano' : 'por mês',
+      title: 'Pacote Premium',
+      description: 'Para empresas e agências que precisam de backgrounds de alta qualidade em grande quantidade.',
+      price: '50',
       features: [
-        'Conjuntos de Social Sets Ilimitados',
-        'Analytics Avançado',
-        'Suporte Prioritário',
-        'Soluções Personalizadas',
-        'Ferramentas de Colaboração em Equipe',
-        'Acesso à API',
+        'Até 50 fotos geradas',
+        'Backgrounds personalizados',
+        'Suporte premium'
       ],
       variant: 'ghost',
-      handleClick: handleBusinessClick,
+      handleClick: handleOnClick,
       isBusiness: true,
       buttonText: "Atualizar",
+      priceId :'pr'
+
     },
   ];
   
@@ -137,7 +120,7 @@ const PricingPage = () => {
         social sets & more.
       </p> */}
       <div className="flex items-center justify-center flex-wrap mb-8">
-  <span className="mr-2">Monthly</span>
+  {/* <span className="mr-2">Monthly</span>
   <label htmlFor="toggle" className="flex items-center cursor-pointer relative">
     <input
       type="checkbox"
@@ -152,8 +135,8 @@ const PricingPage = () => {
         isAnnual ? 'translate-x-6' : 'translate-x-1'
       }`}
     ></span>
-  </label>
-  <span className="ml-2">Annually</span>
+  </label> */}
+  {/* <span className="ml-2">Annually</span> */}
   <br className="hidden md:block" />
   {/* <span className="ml-2 bg-green-500 text-white px-2 py-1 rounded-full mt-2 md:mt-0">
     2 months for free on annual plan
@@ -168,7 +151,6 @@ const PricingPage = () => {
             title={card.title}
             description={card.description}
             price={card.price}
-            period={card.period}
             features={card.features}
             variant={card.variant}
             handleClick={card.handleClick}
@@ -177,6 +159,7 @@ const PricingPage = () => {
             userPlan={userPlan}
             titleColor={card.titleColor}
             priceColor={card.priceColor}
+            priceId={card.priceId}
             />
         ))}
       </div>

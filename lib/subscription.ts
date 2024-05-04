@@ -11,7 +11,7 @@ export const checkSubscription = async ()=>{
     return false;
   }
 
-  const userSubscription = await prisma.userSubscritpion.findUnique({
+  const userSubscription = await prisma.user.findUnique({
     where:{
       userId:userId
     },
