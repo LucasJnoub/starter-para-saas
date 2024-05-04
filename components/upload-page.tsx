@@ -25,7 +25,7 @@ export default function UploadPage() {
   const handleOutput = async () => {
     try {
       setIsLoading(true)      
-      const checkSubscription = await axios.get("api/checksubscription")  
+      const checkSubscription = await axios.get("api/checksubscription")
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data;
       setIsLoading(false)

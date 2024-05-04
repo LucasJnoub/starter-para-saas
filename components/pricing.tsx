@@ -76,61 +76,58 @@ const PricingPage = () => {
   };
 
   
-
   const pricingCards = [
     {
       title: 'Free',
-      description: 'Try out Pallyy and schedule 15 posts per month, for a single brand. No credit card required.',
+      description: 'Experimente o BgPretty e crie backgrounds de produtos com IA para até 10 imagens por mês. Sem necessidade de cartão de crédito.',
       price: 0,
-      period: 'per month',
-      features: ['1 Social Set', '15 Scheduled posts', 'Feed Planner', 'Reports', 'Calendar, board & table views'],
+      period: 'por mês',
+      features: ['10 Backgrounds de IA', 'Acesso a templates básicos', 'Suporte via fórum', 'Visualizações de galeria e lista'],
       variant: 'ghost',
-      handleClick: handleFreeClick, // Alterado para handleFreeClick
-      isBusiness: false,
-      buttonText: user?"Go to dashboard":"Sign Up",
+      handleClick: handleFreeClick,
+      buttonText: user ? "Ir para o dashboard" : "Inscrever-se",
     },
-      
     {
       title: 'Pro',
-      description: 'For social media agencies with multiple brands; unlimited posting, add more brands & more.',
+      description: 'Para profissionais e pequenas equipes; criação ilimitada de backgrounds, mais templates e suporte.',
       price: isAnnual ? '180' : '18',
-      period: isAnnual ? 'per year' : 'per month',
+      period: isAnnual ? 'por ano' : 'por mês',
       features: [
-        'Additional Social Sets ($18/month each)',
-        'Additional Users ($23/month each)',
-        'Custom Analytics Reports',
-        'Custom Domain',
-        'Unlimited Scheduled Posts',
-        'Bulk Scheduling',
-        'Bio Link',
+        'Templates Premium (R$24/mês cada)',
+        'Usuários Adicionais (R$30/mês cada)',
+        'Relatórios de Analytics',
+        'Domínio Personalizado',
+        'Posts Agendados Ilimitados',
+        'Agendamento em Massa',
+        'Link na Bio',
       ],
       variant: 'premium',
       handleClick: handleOnClick,
       isBusiness: false,
-      buttonText: "Upgrade",
-      titleColor:'text-[#A655F7]',
-      priceColor:"text-[#38B2AC]", 
+      buttonText: "Atualizar",
+      titleColor: 'text-[#A655F7]',
+      priceColor: "text-[#38B2AC]",
     },
     {
       title: 'Business',
-      description:
-        'For large organizations with extensive social media needs; unlimited posting, advanced analytics, priority support, and more.',
+      description: 'Para organizações maiores com necessidades extensas de mídia social; postagem ilimitada, analytics avançado, suporte prioritário e mais.',
       price: isAnnual ? '500' : '50',
-      period: isAnnual ? 'per year' : 'per month',
+      period: isAnnual ? 'por ano' : 'por mês',
       features: [
-        'Unlimited Social Sets',
-        'Advanced Analytics',
-        'Priority Support',
-        'Custom Solutions',
-        'Team Collaboration Tools',
-        'API Access',
+        'Conjuntos de Social Sets Ilimitados',
+        'Analytics Avançado',
+        'Suporte Prioritário',
+        'Soluções Personalizadas',
+        'Ferramentas de Colaboração em Equipe',
+        'Acesso à API',
       ],
       variant: 'ghost',
       handleClick: handleBusinessClick,
       isBusiness: true,
-      buttonText: "Upgrade",
+      buttonText: "Atualizar",
     },
   ];
+  
 
   return (
     <div className="bg-[#111827] text-white p-8 ">

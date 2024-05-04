@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { useUser } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-
+import { Check } from 'lucide-react';
 const PricingCard = ({ title, description, price, period, features, variant, handleClick, mb, buttonText, userPlan, rota, titleColor, priceColor}: any) => {
   const { user } = useUser();
   const isPro = userPlan && userPlan.startsWith('pro');
@@ -20,8 +20,8 @@ const PricingCard = ({ title, description, price, period, features, variant, han
         <p className="font-bold mb-2 text-[#CBD5E0]">What you get with {title}:</p>
         <ul className="list-disc list-inside mb-4 text-[#CBD5E0]">
           {features.map((feature: any, index: any) => (
-            <li key={index}>{feature}</li>
-          ))}
+            <li key={index} className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500"/><span>{feature}</span></li>
+            ))}
         </ul>
       </div>
       <div className="mb-4 flex justify-center">
