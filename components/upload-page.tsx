@@ -25,7 +25,6 @@ export default function UploadPage() {
   const handleOutput = async () => {
     try {
       setIsLoading(true)      
-      const checkSubscription = await axios.get("api/checksubscription")
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data;
       setIsLoading(false)
@@ -121,7 +120,7 @@ export default function UploadPage() {
       data-testid="barloader"
       size={10}
       ></SyncLoader>}
-      <Button variant={"premium"} onClick={isLoading ? handlerNull : handleOutput} className='w-[350px]'>
+      <Button variant={"premium"} onClick={isLoading || !file ? handlerNull : handleOutput} className='w-[350px]'>
         Generate          
       </Button>
     
