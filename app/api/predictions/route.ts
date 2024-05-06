@@ -1,10 +1,8 @@
-// app/api/predictions/route.ts
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
-import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs";
-import axios from "axios";
-import { checkSubscription } from "@/lib/subscription";
+import {  decreaseCredit, checkApiLimit } from "@/lib/api-limit";
+import { io } from "socket.io-client";
 
 
 const replicate = new Replicate({
@@ -14,7 +12,6 @@ const replicate = new Replicate({
 export async function POST(req: Request) {
   const body = await req.json()
   const prompt = body.prompt;
-  // const prompt1 = "a modern sofa in a contemporary living room, stylish decor"
   const imgUrl = body.imgUrl;
   const {userId} =  auth();
   const user = await currentUser();
@@ -27,19 +24,16 @@ export async function POST(req: Request) {
     );
   }
 
-  if(await checkSubscription() == false){
+  if(await checkApiLimit() == false){
     return new NextResponse("No plan", { status: 403 });
   }
-
-  // const checkSubscription = axios.get("api/checksubscription");
-  // if((await checkSubscription).data != '200'){
-  //   return new NextResponse("No plan", { status: 403 });
-  // }
+  
+  try{
 
     const output = await replicate.run(
-    "catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
-    {
-      input: {
+      "catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
+      {
+        input: {
         seed: 24603,
         image: imgUrl,
         prompt: prompt,
@@ -55,28 +49,12 @@ export async function POST(req: Request) {
       }
     }
     );
+    decreaseCredit();
     return new NextResponse(JSON.stringify(output), { status: 200 });
+  }catch(error){
+    return new NextResponse(JSON.stringify(error), { status: 500 });
+  }
   }
 
 
 
-// export async function GET(req: Request) {
-//   const page = await replicate.predictions.list();
-//   console.log(page.results)
-//   return new NextResponse(JSON.stringify(page.results), { status: 200 });
-
-
-// }
-// export async function GET(req: Request) {
-//   const { searchParams } = new URL(req.url);
-//   const predictionId = searchParams.get("predictionId");
-
-//   if (!predictionId) {
-//     return new NextResponse("Missing predictionId", { status: 400 });
-//   }
-
-//   const prediction = await replicate.predictions.get(predictionId);
-//   return new NextResponse(JSON.stringify(prediction.output), { status: 200 });
-
-
-// }

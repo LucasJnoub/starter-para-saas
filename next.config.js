@@ -10,6 +10,12 @@ const config = {
   workboxOptions: {
     disableDevLogs: true,
   },
+  // transpilePackages:[
+  //   "server"
+  // ],
+
+  transpilePackages: ["@piwikpro/next-piwik-pro"],
+  reactStrictMode: true,
 
   images: {
     domains: ['replicate.delivery'],

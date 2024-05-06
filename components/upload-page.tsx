@@ -1,6 +1,6 @@
 'use client';
 
-import React, {createContext, useContext,useState, useEffect, CSSProperties } from 'react';
+import React, {useState, useEffect, CSSProperties } from 'react';
 import { Button } from './ui/button';
 import { useEdgeStore } from '@/lib/edgestore';
 import { SingleImageDropzone } from './upload-component/SingleDropZone';
@@ -8,6 +8,8 @@ import axios from 'axios';
 import Image from 'next/image';
 import SyncLoader	 from  "react-spinners/SyncLoader";
 import { useProModal } from '@/hooks/user-pro-modal';
+import { useAuth } from '@clerk/nextjs';
+
 
 
 export default function UploadPage() {
@@ -19,16 +21,46 @@ export default function UploadPage() {
   const [prompt, setPrompt] = useState<string>("");
   const { edgestore } = useEdgeStore();
   const [isProModalOpen, setIsProModalOpen] = useState(false);
+  const {userId} = useAuth();
+  const[credits, setCredits] = useState(0)
+
+  // const [newCredits, setNewCredits] = useState(0);
   
   const proModal = useProModal();
+
+  useEffect(() => {
+    const wss = new WebSocket('ws://localhost:8080'); // Ajuste o endereço conforme necessário
+
+    wss.onopen = () => {
+      console.log('Conectado ao servidor WebSocket');
+      // Envie o ID do usuário para o servidor
+      if (userId) wss.send(userId);
+    };
+
+    wss.onmessage = (event) => {
+      if (userId) wss.send(userId);
+      const data = JSON.parse(event.data);
+      if (data.credits) {
+        setCredits(data.credits);
+      }
+    };
+
+    wss.onerror = (error) => {
+      console.error('Erro no WebSocket:', error);
+    };
+
+    return () => {
+      wss.close(); 
+    };
+  }, [userId]);
 
   const handleOutput = async () => {
     try {
       setIsLoading(true)      
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
-      const replicateUrl = request.data;
+      // const replicateUrl = request.data;
       setIsLoading(false)
-      const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
+      // const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
     } catch (error:any) {
         if(error?.response?.status === 403)
         {
@@ -53,38 +85,40 @@ export default function UploadPage() {
     getAllPhotos();
   }, [isLoading])
 
-  useEffect(() => {
-    const uploadFile = async () => {
-      if (file) {
-        const res = await edgestore.publicFiles.upload({ file });
-        const photoUrl = res.url;
-        setUrl(photoUrl);
-        try {
-          setIsLoading(true)
-          const response = await axios.post("/api/updateuserlink", { photoUrl });
-          setOutput(response.data);
-          setIsLoading(false)
-        } catch (error) {
-          console.error("Error uploading photo:", error);
-        }
-      }
-    }
-    uploadFile();
-  }, [file]);
+  // useEffect(() => {
+  //   const uploadFile = async () => {
+  //     if (file) {
+  //       const res = await edgestore.publicFiles.upload({ file });
+  //       const photoUrl = res.url;
+  //       setUrl(photoUrl);
+  //       try {
+  //         setIsLoading(true)
+  //         const response = await axios.post("/api/updateuserlink", { photoUrl });
+  //         setOutput(response.data);
+  //         setIsLoading(false)
+  //       } catch (error) {
+  //         console.error("Error uploading photo:", error);
+  //       }
+  //     }
+  //   }
+  //   uploadFile();
+  // }, [file]);
+  
+
 
   const override: CSSProperties = {
     display: "block",
     margin: "0 auto",
     borderColor: "black",
   };
-  // Função para baixar a imagem
+  
   const downloadImage = (imageUrl:any) => {
     fetch(imageUrl)
       .then(response => response.blob())
       .then(blob => {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'image.jpg'; // Defina o nome do arquivo aqui
+        link.download = 'image.jpg'; 
         link.click();
       })
       .catch(error => console.error('Error downloading image:', error));
@@ -120,6 +154,7 @@ export default function UploadPage() {
       data-testid="barloader"
       size={10}
       ></SyncLoader>}
+      <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500'>Credits: {credits}</span>
       <Button variant={"premium"} onClick={isLoading || !file ? handlerNull : handleOutput} className='w-[350px]'>
         Generate          
       </Button>
@@ -131,19 +166,7 @@ export default function UploadPage() {
   </div>
     )}
         
-      
-      
-      {/* /* {!isLoading && userPhotos.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 items-center border border-solid-blue mt-4">
-          {userPhotos.map((photo, index) => (
-            <div key={index} className="p-4">
-              <Image alt="user photo" width={87.5} height={50} src={photo.url} priority={true} />
-            </div>
-          ))}
-        </div>
-      )} */
-      
-      } 
+    
       <Button
         variant="destructive"
         onClick={() => downloadImage(userPhotos)}

@@ -17,16 +17,13 @@ export const checkSubscription = async ()=>{
     },
 
     select:{
-      stripeCurrentPeriodEnd:true,
-      stripeCustomerId:true,
-      stripeSubscriptionId:true,
-      stripePriceId:true  
+      credits:true,
     }
   })
 
   if(!userSubscription) return false;
 
-  const isValid = userSubscription.stripePriceId && userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+  const isValid = userSubscription.credits > 0
 
   return !!isValid;
 }

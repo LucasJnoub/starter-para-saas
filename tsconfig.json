@@ -18,7 +18,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/styles/index.js", "app/api/predictions/route.ts", "app/api/predictions/[id].js"],

@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,6 +8,12 @@ import { cn } from '@/lib/utils';
 import { CodeIcon, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, SettingsIcon, VideoIcon } from 'lucide-react';
 import FreeCounter from './free-counter';
 import { Progress } from './ui/progress';
+import axios from 'axios';
+import { useAuth } from '@clerk/nextjs';
+import { io } from 'socket.io-client';
+import { createServer } from 'http';
+import { WebSocketServer } from 'ws';
+
 
 const montserrat = Montserrat({
   weight: '600',
@@ -77,7 +83,73 @@ interface SideBarProps {
 }
 
 export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBarProps) {
+  const [credits, setCredits] = React.useState(0)
   const pathname = usePathname();
+  // const {userId} = useAuth();
+  const [isConnected, setIsConnected] = useState(false);
+  const [transport, setTransport] = useState("N/A");
+  // const [socket, setSocket] = useState(undefined);
+
+  let socket:any
+  // useEffect(() => {
+  //   const wss = new WebSocket('ws://localhost:8080'); // Ajuste o endereço conforme necessário
+
+  //   wss.onopen = () => {
+  //     console.log('Conectado ao servidor WebSocket');
+  //     // Envie o ID do usuário para o servidor
+  //     if (userId) wss.send(userId);
+  //   };
+
+  //   wss.onmessage = (event) => {
+  //     if (userId) wss.send(userId);
+  //     const data = JSON.parse(event.data);
+  //     if (data.credits) {
+  //       setCredits(data.credits);
+  //     }
+  //   };
+
+  //   wss.onerror = (error) => {
+  //     console.error('Erro no WebSocket:', error);
+  //   };
+
+  //   return () => {
+  //     wss.close(); 
+  //   };
+  // }, [userId]);
+
+  
+    // return () => {
+    //   socket.off('credits');
+    // };
+  // }, []);
+  
+
+  // useEffect(()=>{
+  //   const getCredits = async () =>{
+  //     const response = await axios.get('/api/getcredits');
+  //     setCredits(response.data);
+  //   }
+
+  //   getCredits();
+  // }, [credits])
+
+  // useEffect(() => {
+  //   const getCredits = async () => {
+  //     const response = await axios.get('/api/getcredits');
+  //     setCredits(response.data);
+  //   };
+    
+  //   getCredits();
+  //   const interval = setInterval(getCredits, 500); 
+
+  //   return () => clearInterval(interval); 
+
+  // }, [credits]);
+
+  
+ 
+
+
   return (
     <div className=' py-4 flex-col h-full bg-[#111827] text-white'>
       <div className="px-3 py-2 flex-1">
@@ -119,10 +191,11 @@ export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBa
         </div>
 
       </div>
-      <div className="md:mt-20"> 
-      <FreeCounter isPro={isPro}
+      <div className="md:mt-20 flex justify-start"> 
+      {/* <FreeCounter isPro={isPro}
           apiLimitCount={apiLimitCount}
-        />
+        /> */}
+
       </div>
     </div>
   )
