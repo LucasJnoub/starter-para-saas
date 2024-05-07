@@ -47,6 +47,7 @@ function LandingNavBar() {
           <li>Sign in</li>
           </a>
         )}
+
         
       </ul>
     </div>
@@ -55,6 +56,9 @@ function LandingNavBar() {
          {isSignedIn ? "Dashboard" : "Get Started"} 
       </Button>
     </Link>
+
+    
+    {isSignedIn && <UserButton></UserButton>}
 
   </div>
   <div className="sm:hidden">
