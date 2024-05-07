@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         image: imgUrl,
         prompt: prompt,
         img_size: "1024, 1024",
-        apply_img: false,
+        apply_img: true,
         scheduler: "K_EULER",
         product_fill: "80",
         guidance_scale: 7.5,
