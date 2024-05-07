@@ -21,7 +21,6 @@ export async function POST(req:Request){
   let event : Stripe.Event;
 
   const {user} = auth();
-  const userEmail =clerkClient.emailAddresses.getEmailAddress(user?.id || '')
 
 
 
@@ -51,7 +50,6 @@ export async function POST(req:Request){
         await prisma.user.create({
           data:{
             userId: userId,
-            email: user?.emailAddresses[0].emailAddress || '',
             credits: parseInt(credits),
           }
         })
