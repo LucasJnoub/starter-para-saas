@@ -60,12 +60,12 @@ const routes = [
     href: '/image',
     color: 'text-pink-700'
   },
-  {
-    label: 'Settings',
-    icon: SettingsIcon,
-    href: '/settings',
-    color: 'text-white'
-  },
+  // {
+  //   label: 'Settings',
+  //   icon: SettingsIcon,
+  //   href: '/settings',
+  //   color: 'text-white'
+  // },
 ];
 
 
