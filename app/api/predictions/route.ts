@@ -29,21 +29,31 @@ export async function POST(req: Request) {
   try{
 
     const output = await replicate.run(
-      "catacolabs/sdxl-ad-inpaint:9c0cb4c579c54432431d96c70924afcca18983de872e8a221777fb1416253359",
+      "logerzhu/ad-inpaint:b1c17d148455c1fda435ababe9ab1e03bc0d917cc3cf4251916f22c45c83c7df",
       {
         input: {
-        seed: 24603,
-        image: imgUrl,
+        // seed: 24603,
+        // image: imgUrl,
+        // prompt: prompt,
+        // img_size: "1024, 1024",
+        // apply_img: true,
+        // scheduler: "K_EULER",
+        // product_fill: "80",
+        // guidance_scale: 7.5,
+        // condition_scale: 0.8,
+        // negative_prompt: "",
+        // num_refine_steps: 20,
+        // num_inference_steps: 40
+        pixel: "512 * 512",
+        scale: 3,
         prompt: prompt,
-        img_size: "1024, 1024",
-        apply_img: true,
-        scheduler: "K_EULER",
-        product_fill: "80",
+        image_num: 1,
+        image_path: imgUrl,
+        manual_seed: -1,
+        product_size: "0.5 * width",
         guidance_scale: 7.5,
-        condition_scale: 0.8,
-        negative_prompt: "",
-        num_refine_steps: 20,
-        num_inference_steps: 40
+        negative_prompt: "illustration, 3d, sepia, painting, cartoons, sketch, (worst quality:2)",
+        num_inference_steps: 20
       }
     }
     );

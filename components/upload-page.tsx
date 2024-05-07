@@ -32,7 +32,7 @@ export default function UploadPage() {
     try {
       setIsLoading(true)      
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
-      const replicateUrl = request.data.output;
+      const replicateUrl = request.data.output[1];
       setCredits(request.data.credits);
       setIsLoading(false)
       const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
