@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
 import { auth, currentUser } from "@clerk/nextjs";
-import {  decreaseCredit, checkApiLimit } from "@/lib/api-limit";
-import { io } from "socket.io-client";
-
+import {  decreaseCredit, checkApiLimit, checkCredit } from "@/lib/api-limit";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -50,7 +48,8 @@ export async function POST(req: Request) {
     }
     );
     decreaseCredit();
-    return new NextResponse(JSON.stringify(output), { status: 200 });
+    const credit = checkCredit()
+    return new NextResponse(JSON.stringify({ output, credit }), { status: 200 });
   }catch(error){
     return new NextResponse(JSON.stringify(error), { status: 500 });
   }

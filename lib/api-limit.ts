@@ -23,14 +23,7 @@ export const decreaseCredit =  async ()=>{
         }
       }
     })  }
-  // else{
-  //   await prisma.userApiLimit.create({
-  //     data:{
-  //       userId:userId,
-  //       count: 1
-  //     }
-  //   }
-  //   )
+
   }
 
 
@@ -46,12 +39,6 @@ export const checkApiLimit = async () => {
     }
   })
 
-//   if (!userApiLimit || userApiLimit.credits  > 0){
-//     return false;
-//   }else{
-//     return true;
-//   }
-// }
 
 if (userApiLimit && userApiLimit.credits  > 0){
   return true;
@@ -60,16 +47,15 @@ if (userApiLimit && userApiLimit.credits  > 0){
 }
 }
 
-// export const getApiLimitCount = async () => {
-//   const {userId} = auth();
-//   if(!userId) return 0;
-//   const userApiLimit = await prisma.user.findUnique({ 
-//     where:{
-//       userId:userId,
-//       credits: {gt: 0}
-//     }});
 
-//     if(!userApiLimit) return 0;
-//     return userApiLimit.count; // Return the count value from the database
 
-// }
+export const checkCredit = async () => {
+  const {userId} = auth();
+  if(!userId) return null;
+  const user = await prisma.user.findUnique({
+      where: {
+          userId: userId,
+      },
+  });
+  return user?.credits;
+}

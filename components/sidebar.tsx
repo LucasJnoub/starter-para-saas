@@ -8,11 +8,6 @@ import { cn } from '@/lib/utils';
 import { CodeIcon, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, SettingsIcon, VideoIcon } from 'lucide-react';
 import FreeCounter from './free-counter';
 import { Progress } from './ui/progress';
-import axios from 'axios';
-import { useAuth } from '@clerk/nextjs';
-import { io } from 'socket.io-client';
-import { createServer } from 'http';
-import { WebSocketServer } from 'ws';
 
 
 const montserrat = Montserrat({
@@ -85,12 +80,10 @@ interface SideBarProps {
 export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBarProps) {
   const [credits, setCredits] = React.useState(0)
   const pathname = usePathname();
-  // const {userId} = useAuth();
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
   // const [socket, setSocket] = useState(undefined);
 
-  let socket:any
   // useEffect(() => {
   //   const wss = new WebSocket('ws://localhost:8080'); // Ajuste o endereço conforme necessário
 

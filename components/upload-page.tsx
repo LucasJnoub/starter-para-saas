@@ -24,43 +24,18 @@ export default function UploadPage() {
   const {userId} = useAuth();
   const[credits, setCredits] = useState(0)
 
-  // const [newCredits, setNewCredits] = useState(0);
-  
   const proModal = useProModal();
 
-  useEffect(() => {
-    const wss = new WebSocket('ws://localhost:8080'); // Ajuste o endereço conforme necessário
-
-    wss.onopen = () => {
-      console.log('Conectado ao servidor WebSocket');
-      // Envie o ID do usuário para o servidor
-      if (userId) wss.send(userId);
-    };
-
-    wss.onmessage = (event) => {
-      if (userId) wss.send(userId);
-      const data = JSON.parse(event.data);
-      if (data.credits) {
-        setCredits(data.credits);
-      }
-    };
-
-    wss.onerror = (error) => {
-      console.error('Erro no WebSocket:', error);
-    };
-
-    return () => {
-      wss.close(); 
-    };
-  }, [userId]);
+  
 
   const handleOutput = async () => {
     try {
       setIsLoading(true)      
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
-      // const replicateUrl = request.data;
+      const replicateUrl = request.data.output;
+      setCredits(request.data.credits);
       setIsLoading(false)
-      // const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
+      const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
     } catch (error:any) {
         if(error?.response?.status === 403)
         {
@@ -80,29 +55,44 @@ export default function UploadPage() {
       console.error("Error fetching photos:", error);
     }
   }
+  
+  useEffect(() => {
+    const updateCreditsOnClient = async () => {
+      try {
+        const  userCredit = await axios.get("/api/getcredits");
+        setCredits(userCredit.data);
+
+      } catch (error) {
+        console.error("Error updating credits on the server:", error);
+      }
+    };
+  
+    updateCreditsOnClient();
+  }, [credits]);
+  
 
   useEffect(() => {
     getAllPhotos();
   }, [isLoading])
 
-  // useEffect(() => {
-  //   const uploadFile = async () => {
-  //     if (file) {
-  //       const res = await edgestore.publicFiles.upload({ file });
-  //       const photoUrl = res.url;
-  //       setUrl(photoUrl);
-  //       try {
-  //         setIsLoading(true)
-  //         const response = await axios.post("/api/updateuserlink", { photoUrl });
-  //         setOutput(response.data);
-  //         setIsLoading(false)
-  //       } catch (error) {
-  //         console.error("Error uploading photo:", error);
-  //       }
-  //     }
-  //   }
-  //   uploadFile();
-  // }, [file]);
+  useEffect(() => {
+    const uploadFile = async () => {
+      if (file) {
+        const res = await edgestore.publicFiles.upload({ file });
+        const photoUrl = res.url;
+        setUrl(photoUrl);
+        try {
+          setIsLoading(true)
+          const response = await axios.post("/api/updateuserlink", { photoUrl });
+          setOutput(response.data);
+          setIsLoading(false)
+        } catch (error) {
+          console.error("Error uploading photo:", error);
+        }
+      }
+    }
+    uploadFile();
+  }, [file]);
   
 
 
