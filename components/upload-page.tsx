@@ -36,6 +36,7 @@ export default function UploadPage() {
       setCredits(request.data.credits);
       setIsLoading(false)
       const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
+      setUserPhotos(replicateUrl); // Atualiza o estado com a nova URL da imagem
     } catch (error:any) {
         if(error?.response?.status === 403)
         {
@@ -149,7 +150,7 @@ export default function UploadPage() {
         Generate          
       </Button>
     
-      {!isLoading && userPhotos &&(
+      {!isLoading && userPhotos && (
   <div className="">
     
       <img alt="user photo" width={350} height={350} src={userPhotos}/>
