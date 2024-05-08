@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         // seed: 24603,
         // image: imgUrl,
         // prompt: prompt,
-        // img_size: "1024, 1024",
+        // img_size: "1024, 1024" ,
         // apply_img: true,
         // scheduler: "K_EULER",
         // product_fill: "80",
