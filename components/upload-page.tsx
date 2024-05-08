@@ -152,7 +152,7 @@ export default function UploadPage() {
       {!isLoading && userPhotos &&(
   <div className="">
     
-      <Image alt="user photo" width={350} height={350} src={userPhotos} priority={true} />
+      <img alt="user photo" width={350} height={350} src={userPhotos}/>
   </div>
     )}
         
