@@ -53,7 +53,7 @@ export async function POST(req: Request) {
         product_size: "0.5 * width",
         guidance_scale: 7.5,
         negative_prompt: "illustration, 3d, sepia, painting, cartoons, sketch, (worst quality:2)",
-        num_inference_steps: 20,
+        num_inference_steps: 20
       }
     }
     );
