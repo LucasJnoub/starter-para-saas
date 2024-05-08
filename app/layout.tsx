@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "BgPretty",
   description: "AI Product background generator",
-  manifest:"/manifest.json"
+  manifest:"/manifest.json",
 };
 
 
@@ -27,6 +27,7 @@ export default function RootLayout({
     <ClerkProvider localization={ptBR}>
       <html lang="en">
         <body className={inter.className}>
+        <link rel="icon" href="./favicon.ico" sizes="any" />
           <ToasterProvider/>
           {/* <ModalProvider/> */}
           <EdgeStoreProvider>{children}</EdgeStoreProvider>
