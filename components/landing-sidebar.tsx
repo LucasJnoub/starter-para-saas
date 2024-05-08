@@ -21,14 +21,15 @@ export default function LandingSideBar() {
     <div className=' py-4 flex-col h-full bg-[#333] text-white'>
       <div className="px-3 py-2 flex-1">
         <Link href='' className='flex items-center pl-3 mb-14'>
-          <div className="relative w-8 h-8 mr-4">
-            <Image
+          {/* <div className="relative w-8 h-8 mr-4"> */}
+            {/* <Image
               fill
               alt='logo'
               src='/logo.png'
-            />
-          </div>
-          <h1 className={cn("text-2xl font-bold", montserrat.className)}>
+            /> */}
+          {/* </div> */}
+          <h1 className={cn("text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500", montserrat.className)}>
+          {/* <h1 className={cn("text-2xl font-bold", montserrat.className)}> */}
             BgPretty
           </h1>
         </Link>
@@ -42,8 +43,10 @@ export default function LandingSideBar() {
           <Link
             href={isSignedIn ? "/image" : "/sign-in"}
             className={cn(
-              'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
-              isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400'
+              'mb-2 text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
+              // isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400'
+              isSignedIn &&  'text-zinc-400' 
+
             )}
           >
             <div className="flex items-center flex-1">
@@ -54,8 +57,8 @@ export default function LandingSideBar() {
           <Link
             href={isSignedIn ? "/image" : "/sign-up"}
             className={cn(
-              'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
-              isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400' 
+              'mb-2 text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
+              isSignedIn &&  'text-zinc-400' 
             )}
           >
             <div className="flex items-center flex-1">
@@ -67,7 +70,9 @@ export default function LandingSideBar() {
             href={"/pricing"}
             className={cn(
               'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
-              isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400'
+              // isSignedIn ? 'bg-white/10 text-white' : 'text-zinc-400'
+              isSignedIn &&  'text-zinc-400' 
+
             )}
           >
             <div className="flex items-center flex-1">
