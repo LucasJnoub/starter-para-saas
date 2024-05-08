@@ -69,11 +69,14 @@ const PricingPage = () => {
         'Backgrounds Personalizados',
         'Sem suporte premium'
       ],
-      variant: 'ghost',
+      variant: 'custom',
       handleClick: handleOnClick,
       isBusiness: false,
       buttonText: "Atualizar",
-      priceId :'i'
+      priceId :'i',
+      titleColor: 'text-[#000000]',
+      priceColor: "text-[#000000]"
+
     },
     {
       title: 'Pacote Profissional',
@@ -89,7 +92,7 @@ const PricingPage = () => {
       isBusiness: false,
       buttonText: "Atualizar",
       titleColor: 'text-[#A655F7]',
-      priceColor: "text-[#38B2AC]",
+      priceColor: "text-[#A655F7]",
       priceId :'p'
 
     },
@@ -102,18 +105,20 @@ const PricingPage = () => {
         'Backgrounds personalizados',
         'Suporte premium'
       ],
-      variant: 'ghost',
+      variant: 'custom',
       handleClick: handleOnClick,
       isBusiness: true,
       buttonText: "Atualizar",
-      priceId :'pr'
+      priceId :'pr',
+      titleColor: 'text-[#000000]',
+      priceColor: "text-[#000000]"
 
     },
   ];
   
 
   return (
-    <div className="bg-[#111827] text-white p-8 ">
+    <div className="bg-[#ffffff] text-white p-8 ">
       <h1 className="text-4xl font-bold mb-8 text-center">Pricing</h1>
       {/* <p className="mb-8 text-center">
         Start scheduling on our Free plan - no credit card required, or trial Premium for unlimited scheduling, multiple

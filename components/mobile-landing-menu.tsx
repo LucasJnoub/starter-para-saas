@@ -18,7 +18,7 @@ export default function MobileLandingMenu() {
       <Sheet>
           {isMounted &&(
             <SheetTrigger>
-              <Button>
+              <Button variant={"ghost"} className="w-10 h-10 p-0" size={'sm'}>
                 <Menu/>
               </Button>
             </SheetTrigger>
