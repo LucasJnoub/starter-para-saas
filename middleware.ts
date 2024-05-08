@@ -7,7 +7,7 @@ export default authMiddleware({
     if (!auth.userId && !auth.isPublicRoute) {
       return redirectToSignIn({ returnBackUrl: req.url });
     }
-    // if(auth.userId && auth.isPublicRoute){
+    // if(auth.userId && auth.isPublicRoute) {
     // const dashboard = new URL("/image", req.url);
     // return NextResponse.redirect(dashboard);
     // }
