@@ -177,7 +177,7 @@ export default function UploadPage() {
     
       {!isLoading && userPhotos && (
   <div className="">
-    
+      
     <img
   alt="user photo"
   width={350}
