@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     );
     decreaseCredit();
     const credit = checkCredit()
-    return new NextResponse(JSON.stringify({ credit }), { status: 200 });
+    return new NextResponse(JSON.stringify({ output, credit }), { status: 200 });
   }catch(error){
     return new NextResponse(JSON.stringify(error), { status: 500 });
   }

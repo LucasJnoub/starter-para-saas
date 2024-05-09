@@ -14,8 +14,6 @@ import { useAuth } from '@clerk/nextjs';
 
 export default function UploadPage() {
   const [isLoading, setIsLoading] = useState(false);
-  // Inicializa o estado de isLoading com o valor armazenado em localStorage ou false se não houver nenhum valor armazenado
-  // const [isLoading, setIsLoading] = useState(() => localStorage.getItem('isLoading') === 'true' ? true : false);
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState<string>();
   const [output, setOutput] = useState<string>("");
@@ -25,7 +23,7 @@ export default function UploadPage() {
   const [isProModalOpen, setIsProModalOpen] = useState(false);
   const {userId} = useAuth();
   const[credits, setCredits] = useState(0)
-  const [isReloadingPage, setIsReloadingPage] = useState(false);
+  // const [isReloadingPage, setIsReloadingPage] = useState(false);
 
   const proModal = useProModal();
 
@@ -33,21 +31,21 @@ export default function UploadPage() {
 
 
 
-  useEffect(() => {
-     const handleBeforeUnload = (event:any) => {
-       if (isLoading) {
-         event.preventDefault();
-         event.returnValue = "Você perderá a imagem em geração se recarregar a página."; 
-         setIsReloadingPage(true);
-       }
-     };
+  // useEffect(() => {
+  //    const handleBeforeUnload = (event:any) => {
+  //      if (isLoading) {
+  //        event.preventDefault();
+  //        event.returnValue = "Você perderá a imagem em geração se recarregar a página."; 
+  //        setIsReloadingPage(true);
+  //      }
+  //    };
    
-     window.addEventListener("beforeunload", handleBeforeUnload);
+  //    window.addEventListener("beforeunload", handleBeforeUnload);
    
-     return () => {
-       window.removeEventListener("beforeunload", handleBeforeUnload);
-     };
-   }, [isLoading]); 
+  //    return () => {
+  //      window.removeEventListener("beforeunload", handleBeforeUnload);
+  //    };
+  //  }, [isLoading]); 
    
   const handleOutput = async () => {
     try {
@@ -77,10 +75,7 @@ export default function UploadPage() {
       console.error("Error fetching photos:", error);
     }
   }
-  // useEffect(() => {
-  //   localStorage.setItem('isLoading', isLoading.toString());
-  // }, [isLoading]);
-  
+
   useEffect(() => {
     const updateCreditsOnClient = async () => {
       try {
@@ -177,7 +172,7 @@ export default function UploadPage() {
     
       {!isLoading && userPhotos && (
   <div className="">
-      
+
     <img
   alt="user photo"
   width={350}
