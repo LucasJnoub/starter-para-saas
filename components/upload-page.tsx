@@ -13,7 +13,9 @@ import { useAuth } from '@clerk/nextjs';
 
 
 export default function UploadPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // Inicializa o estado de isLoading com o valor armazenado em localStorage ou false se não houver nenhum valor armazenado
+  const [isLoading, setIsLoading] = useState(() => localStorage.getItem('isLoading') === 'true' ? true : false);
   const [file, setFile] = useState<File>();
   const [url, setUrl] = useState<string>();
   const [output, setOutput] = useState<string>("");
@@ -56,6 +58,9 @@ export default function UploadPage() {
       console.error("Error fetching photos:", error);
     }
   }
+  useEffect(() => {
+    localStorage.setItem('isLoading', isLoading.toString());
+  }, [isLoading]);
   
   useEffect(() => {
     const updateCreditsOnClient = async () => {
