@@ -59,63 +59,121 @@ const PricingPage = () => {
   };
 
   
+  // const pricingCards = [
+  //   {
+  //     title: 'Pacote Inicial',
+  //     description: 'Perfeito para quem está começando e precisa de backgrounds simples e eficientes.',
+  //     price: '7',
+  //     features: [
+  //       'Até 7 fotos geradas',
+  //       'Backgrounds Personalizados',
+  //       'Sem suporte premium'
+  //     ],
+  //     variant: 'custom',
+  //     handleClick: handleOnClick,
+  //     isBusiness: false,
+  //     buttonText: "Atualizar",
+  //     priceId :'i',
+  //     titleColor: 'text-[#000000]',
+  //     priceColor: "text-[#000000]"
+
+  //   },
+  //   {
+  //     title: 'Pacote Profissional',
+  //     description: 'Ideal para pequenos negócios e empreendedores que querem backgrounds mais elaborados.',
+  //     price: '10',
+  //     features: [
+  //       'Até 10 fotos geradas',
+  //       'Backgrounds personalizados',
+  //       'Suporte premium'
+  //     ],
+  //     variant: 'premium',
+  //     handleClick: handleOnClick,
+  //     isBusiness: false,
+  //     buttonText: "Atualizar",
+  //     titleColor: 'text-[#A655F7]',
+  //     priceColor: "text-[#A655F7]",
+  //     priceId :'p'
+
+  //   },
+  //   {
+  //     title: 'Pacote Premium',
+  //     description: 'Para empresas e agências que precisam de backgrounds de alta qualidade em grande quantidade.',
+  //     price: '50',
+  //     features: [
+  //       'Até 50 fotos geradas',
+  //       'Backgrounds personalizados',
+  //       'Suporte premium'
+  //     ],
+  //     variant: 'custom',
+  //     handleClick: handleOnClick,
+  //     isBusiness: true,
+  //     buttonText: "Atualizar",
+  //     priceId :'pr',
+  //     titleColor: 'text-[#000000]',
+  //     priceColor: "text-[#000000]"
+
+  //   },
+  // ];
+  
+
   const pricingCards = [
     {
-      title: 'Pacote Inicial',
-      description: 'Perfeito para quem está começando e precisa de backgrounds simples e eficientes.',
+      title: 'Starter',
+      description: 'Perfect for those who are starting out and need simple and efficient backgrounds.',
       price: '7',
       features: [
-        'Até 7 fotos geradas',
-        'Backgrounds Personalizados',
-        'Sem suporte premium'
+        'Up to 7 generated photos',
+        'Customized Backgrounds',
+        'No premium support'
       ],
       variant: 'custom',
       handleClick: handleOnClick,
       isBusiness: false,
-      buttonText: "Atualizar",
+      buttonText: "Upgrade",
       priceId :'i',
       titleColor: 'text-[#000000]',
       priceColor: "text-[#000000]"
 
     },
     {
-      title: 'Pacote Profissional',
-      description: 'Ideal para pequenos negócios e empreendedores que querem backgrounds mais elaborados.',
+      title: 'Professional',
+      description: 'Ideal for small businesses and entrepreneurs who want more elaborate backgrounds.',
       price: '10',
       features: [
-        'Até 10 fotos geradas',
-        'Backgrounds personalizados',
-        'Suporte premium'
+        'Up to 10 generated photos',
+        'Customized Backgrounds',
+        'Premium support'
       ],
       variant: 'premium',
       handleClick: handleOnClick,
       isBusiness: false,
-      buttonText: "Atualizar",
+      buttonText: "Upgrade",
       titleColor: 'text-[#A655F7]',
       priceColor: "text-[#A655F7]",
       priceId :'p'
 
     },
     {
-      title: 'Pacote Premium',
-      description: 'Para empresas e agências que precisam de backgrounds de alta qualidade em grande quantidade.',
+      title: 'Premium',
+      description: 'For companies and agencies that need high-quality backgrounds in large quantities.',
       price: '50',
       features: [
-        'Até 50 fotos geradas',
-        'Backgrounds personalizados',
-        'Suporte premium'
+        'Up to 50 generated photos',
+        'Customized Backgrounds',
+        'Premium support'
       ],
       variant: 'custom',
       handleClick: handleOnClick,
       isBusiness: true,
-      buttonText: "Atualizar",
+      buttonText: "Upgrade",
       priceId :'pr',
       titleColor: 'text-[#000000]',
       priceColor: "text-[#000000]"
 
     },
   ];
-  
+
 
   return (
     <div className="bg-[#ffffff] text-white p-8 ">

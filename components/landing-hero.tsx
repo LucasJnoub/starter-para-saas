@@ -8,7 +8,7 @@ export const LandingHero = ()=>{
   const {isSignedIn} = useAuth();
 
   return (
-    <div className="text-[#333] font-bold py-36 text-center space-y-5">
+    <div className="text-[#333] font-bold py-20 text-center space-y-5">
       <div className="text-4xl-sm:text  sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
         <h1 className="text[#333]">The Best AI Tool for </h1>
         <div className="">
