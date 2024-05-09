@@ -184,13 +184,18 @@ export default function UploadPage() {
 />  </div>
     )}
         
-        {!isLoading && output && <Button
+        {!isLoading  ? <Button
         variant="destructive"
         onClick={() => downloadImage(userPhotos)}
         className="w-[200px]"
       >
         Download Image
-      </Button>}
+      </Button> : <Button
+        variant="destructive"
+        className="w-[200px]"
+      >
+        Download Image
+      </Button> }
     
      
     </div>
