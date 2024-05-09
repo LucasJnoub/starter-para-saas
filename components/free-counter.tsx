@@ -24,7 +24,7 @@ if(!mounted) return null;
       <Card className='bg-white/10 border-0'>
         <CardContent className='py-6'>                  
           <Link href='/pricing'>
-          <Button  className='w-full w-[200px]' variant={"premium"}>Upgrade <Zap className='h-4 ml-2 fill white'/></Button>
+          <Button  className='w-[200px]' variant={"premium"}>Upgrade <Zap className='h-4 ml-2 fill white'/></Button>
           </Link>
         </CardContent>
       </Card>
