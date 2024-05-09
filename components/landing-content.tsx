@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { EmblaCarousel } from './landing-carousel';
 
 export default function LandingContent() {
   const testimonials = [
@@ -33,12 +34,15 @@ export default function LandingContent() {
 
   return (
     <div className='px-10 pb-20'>
-      <h2 className='text-center text-4xl text-[#333333] font-extrabold mb-10'>
+      <div className="mb-10">
+      <EmblaCarousel></EmblaCarousel>
+      </div>
+      {/* <h2 className='text-center text-4xl text-[#333333] font-extrabold mb-10'>
         Testimonials
-      </h2>
+      </h2> */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {testimonials.map((item)=>(
+          {/* {testimonials.map((item)=>(
             <Card key={item.description} className='bg-[#F0F4F9] border-none text-[#333]'>
                 <CardHeader>
                   <CardTitle className='flex items-center gap-x-2'>
@@ -52,7 +56,7 @@ export default function LandingContent() {
                   </CardContent>
                 </CardHeader>
             </Card>
-          ))}
+          ))} */}
       </div>
     </div>
   )
