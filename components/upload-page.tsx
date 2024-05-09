@@ -178,8 +178,15 @@ export default function UploadPage() {
       {!isLoading && userPhotos && (
   <div className="">
     
-      <img alt="user photo" width={350} height={350} src={userPhotos}/>
-  </div>
+    <img
+  alt="user photo"
+  width={350}
+  height={350}
+  src={userPhotos}
+  onError={(e) => {
+    e.currentTarget.style.display = 'none';
+  }}
+/>  </div>
     )}
         
         {!isLoading && output && <Button
