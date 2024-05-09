@@ -30,7 +30,7 @@ const PricingCard = ({ title, description, price, period, features, variant, han
             className={`text-white px-4 py-2 rounded-full mb-4${variant === 'outline' ? 'bg-[#2B3945]' : ''} w-[250px]`}
             onClick={()=>handleClick(priceId)}
             >
-           Adquirir agora 
+           Buy Now
           </Button>
       </div>
     </div>

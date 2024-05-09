@@ -121,7 +121,7 @@ const PricingPage = () => {
     {
       title: 'Starter',
       description: 'Perfect for those who are starting out and need simple and efficient backgrounds.',
-      price: '1.50',
+      price: '1,50',
       features: [
         'Up to 7 generated photos',
         'Customized Backgrounds',
@@ -138,7 +138,7 @@ const PricingPage = () => {
     {
       title: 'Professional',
       description: 'Ideal for small businesses and entrepreneurs who want more elaborate backgrounds.',
-      price: '2.00',
+      price: '2,00',
       features: [
         'Up to 10 generated photos',
         'Customized Backgrounds'
@@ -155,7 +155,7 @@ const PricingPage = () => {
     {
       title: 'Premium',
       description: 'For companies and agencies that need high-quality backgrounds in large quantities.',
-      price: '10.00',
+      price: '10,00',
       features: [
         'Up to 50 generated photos',
         'Customized Backgrounds'
