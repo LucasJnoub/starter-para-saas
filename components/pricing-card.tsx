@@ -13,7 +13,7 @@ const PricingCard = ({ title, description, price, period, features, variant, han
     <div className={cn(`bg-[#ffff] shadow-xl rounded-2xl p-8 ${variant === 'premium' ? 'border-gradient' : ''} ${mb}`)}>
       <h2 className={cn("text-2xl font-bold mb-4", titleColor)}>{title}</h2>
       <p className="mb-4 h-[110px] text-[#333]">{description}</p>
-      <p className={cn("text-4xl font-bold mb-4", priceColor)}>R${price}</p>
+      <p className={cn("text-4xl font-bold mb-4", priceColor)}>${price}</p>
       <p className="mb-4">{period}</p>
       <p className="mb-4">Includes:</p>
       <div className="h-[250px]">
