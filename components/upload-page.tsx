@@ -151,9 +151,10 @@ export default function UploadPage() {
       size={10}
       ></SyncLoader>}
       <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500'>Credits: {credits}</span>
-      <Button variant={"premium"} onClick={isLoading || !file ? handlerNull : handleOutput} className='w-[350px]'>
+      {!isLoading && <Button variant={"premium"} onClick={isLoading || !file ? handlerNull : handleOutput} className='w-[350px]'>
         Generate          
-      </Button>
+      </Button>}
+      
     
       {!isLoading && userPhotos && (
   <div className="">
@@ -162,14 +163,15 @@ export default function UploadPage() {
   </div>
     )}
         
-    
-      <Button
+        {!isLoading && output && <Button
         variant="destructive"
         onClick={() => downloadImage(userPhotos)}
         className="w-[200px]"
       >
         Download Image
-      </Button>
+      </Button>}
+    
+     
     </div>
   );
 }
