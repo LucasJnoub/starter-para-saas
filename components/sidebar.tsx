@@ -184,10 +184,9 @@ export default function SideBar({ apiLimitCount, isPro, onMenuItemClick}: SideBa
         </div>
 
       </div>
-      <div className="md:mt-20 flex justify-start"> 
-      {/* <FreeCounter isPro={isPro}
-          apiLimitCount={apiLimitCount}
-        /> */}
+      <div className="md:mt-20 flex justify-center"> 
+      <FreeCounter
+        />
 
       </div>
     </div>
