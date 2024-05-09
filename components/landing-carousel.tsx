@@ -5,7 +5,7 @@ import Autoplay from 'embla-carousel-autoplay'
 
 
 export function EmblaCarousel() {
-  const [emblaRef] = useEmblaCarousel({loop: true},[Autoplay()])
+  const [emblaRef] = useEmblaCarousel({loop: true},[Autoplay({delay: 2500})])
 
   return (
     <div className="overflow-hidden" ref={emblaRef}>
