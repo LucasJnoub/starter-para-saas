@@ -1,11 +1,34 @@
+"use client"
 import React from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Autoplay from 'embla-carousel-autoplay'
+import { EmblaOptionsType } from 'embla-carousel'
+import { useEffect } from 'react'
+
 
 
 export function EmblaCarousel() {
-  const [emblaRef] = useEmblaCarousel({loop: true},[Autoplay({delay: 2500})])
+
+//   const [emblaRef] = useEmblaCarousel({loop: true, },[Autoplay({delay: 2500})])
+const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+
+useEffect(() => {
+    if (!emblaApi) return;
+    
+    const play = () => {
+      if (emblaApi.canScrollNext()) {
+        emblaApi.scrollNext();
+      } else {
+        emblaApi.scrollTo(0);
+      }
+    };
+
+    const interval = setInterval(play, 2500);
+
+    return () => clearInterval(interval);
+  }, [emblaApi]);
+
 
   return (
     <div className="overflow-hidden" ref={emblaRef}>

@@ -3,7 +3,10 @@ import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { EmblaCarousel } from './landing-carousel';
 
+
+
 export default function LandingContent() {
+
   const testimonials = [
     {
       name: "Antonio",
