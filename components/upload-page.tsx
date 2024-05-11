@@ -23,45 +23,33 @@ export default function UploadPage() {
   const [isProModalOpen, setIsProModalOpen] = useState(false);
   const {userId} = useAuth();
   const[credits, setCredits] = useState(0)
-  // const [isReloadingPage, setIsReloadingPage] = useState(false);
+  const [isPredictionRunning, setIsPredictionRunning] = useState(false);  
 
   const proModal = useProModal();
 
   
+  
 
-
-
-  // useEffect(() => {
-  //    const handleBeforeUnload = (event:any) => {
-  //      if (isLoading) {
-  //        event.preventDefault();
-  //        event.returnValue = "Você perderá a imagem em geração se recarregar a página."; 
-  //        setIsReloadingPage(true);
-  //      }
-  //    };
-   
-  //    window.addEventListener("beforeunload", handleBeforeUnload);
-   
-  //    return () => {
-  //      window.removeEventListener("beforeunload", handleBeforeUnload);
-  //    };
-  //  }, [isLoading]); 
    
   const handleOutput = async () => {
     try {
-      setIsLoading(true)      
+      setIsLoading(true)     
+      setIsPredictionRunning(true);
       const request = await axios.post("/api/predictions", { prompt, imgUrl: url });
       const replicateUrl = request.data.output[1];
       setCredits(request.data.credits);
+      request.data.requestId
       setIsLoading(false)
       const createReplicateUrl = await axios.post("/api/updatereplicateurl", { replicateUrl });
       setUserPhotos(replicateUrl); // Atualiza o estado com a nova URL da imagem
+      setIsPredictionRunning(false)
     } catch (error:any) {
-        if(error?.response?.status === 403)
-        {
-          setIsLoading(false)
-          proModal.onOpen();
-        }
+      if(error?.response?.status === 403)
+      { 
+        setIsLoading(false)
+        proModal.onOpen();
+      }
+      setIsPredictionRunning(false)
       console.log("Failed to create prediction " + error);
     }
   }
@@ -93,7 +81,7 @@ export default function UploadPage() {
 
   useEffect(() => {
     getAllPhotos();
-  }, [isLoading])
+  }, [])
 
   useEffect(() => {
     const uploadFile = async () => {
@@ -135,15 +123,6 @@ export default function UploadPage() {
   };
 
 
-  const checkImageExists = async (url:any) => {
-    try {
-      const response = await fetch(url, { method: 'HEAD' });
-      return response.status === 200;
-    } catch (error) {
-      console.error('Error checking image:', error);
-      return false;
-    }
-  };
 
   const handlerNull = () => {
     
@@ -164,6 +143,7 @@ export default function UploadPage() {
       data-testid="barloader"
       size={10}
       ></SyncLoader>}
+      {isPredictionRunning && <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500 text-center'>If you reload the page, you are going to lose your image generation.</span>}
       <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-pink-600 to-red-500'>Credits: {credits}</span>
       {!isLoading && <Button variant={"premium"} onClick={isLoading || !file ? handlerNull : handleOutput} className='w-[350px]'>
         Generate          
@@ -181,8 +161,11 @@ export default function UploadPage() {
   onError={(e) => {
     e.currentTarget.style.display = 'none';
   }}
-/>  </div>
+/>  
+
+</div>
     )}
+   
         
         {!isLoading  ? <Button
         variant="destructive"

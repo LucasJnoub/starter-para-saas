@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import Replicate from "replicate";
 import { auth, currentUser } from "@clerk/nextjs";
 import {  decreaseCredit, checkApiLimit, checkCredit } from "@/lib/api-limit";
+import { updatePredictionUrl } from "@/lib/update-prediction-url";
+
+
+
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -27,7 +31,6 @@ export async function POST(req: Request) {
   }
   
   try{
-
     const output = await replicate.run(
       "logerzhu/ad-inpaint:b1c17d148455c1fda435ababe9ab1e03bc0d917cc3cf4251916f22c45c83c7df",
       {
@@ -35,7 +38,7 @@ export async function POST(req: Request) {
         // seed: 24603,
         // image: imgUrl,
         // prompt: prompt,
-        // img_size: "1024, 1024" ,
+        // img_size: "1024, 1024" , 
         // apply_img: true,
         // scheduler: "K_EULER",
         // product_fill: "80",
@@ -57,8 +60,13 @@ export async function POST(req: Request) {
       }
     }
     );
+
+  if(output){
+    updatePredictionUrl(output);
     decreaseCredit();
+  }
     const credit = checkCredit()
+    // return new NextResponse(null, { status: 200 });
     return new NextResponse(JSON.stringify({ output, credit }), { status: 200 });
   }catch(error){
     return new NextResponse(JSON.stringify(error), { status: 500 });
