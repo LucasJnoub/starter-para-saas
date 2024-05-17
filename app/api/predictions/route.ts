@@ -63,6 +63,7 @@ export async function POST(req: Request) {
 
   if(output){
     updatePredictionUrl(output);
+    if(updatePredictionUrl)
     decreaseCredit();
   }
     const credit = checkCredit()

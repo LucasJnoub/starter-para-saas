@@ -5,6 +5,7 @@ export async function updatePredictionUrl(replicateUri:any) {
     const replicateUrl = replicateUri.data.output[1];
     const {userId} = auth();
 
+    auth().user?.primaryPhoneNumberId
 
     // const checkUserSubscription:any = axios.get('/checksubscription');
     // if (checkUserSubscription?.response?.status === 403) return new NextResponse("Forbidden", { status: 403 });
@@ -23,7 +24,7 @@ export async function updatePredictionUrl(replicateUri:any) {
         userId: userId,
         url: replicateUrl,
         createdAt: new Date(),
-      }
+      }   
     })
 
     return new NextResponse("OK", { status: 200 });

@@ -27,7 +27,10 @@ export default function UploadPage() {
 
   const proModal = useProModal();
 
-  
+
+  useEffect(() => {
+    const getUserEmail:any = axios.post("/api/getuseremail");
+})
   
 
    
@@ -81,7 +84,7 @@ export default function UploadPage() {
 
   useEffect(() => {
     getAllPhotos();
-  }, [])
+  }, [userPhotos])
 
   useEffect(() => {
     const uploadFile = async () => {

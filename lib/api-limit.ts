@@ -21,7 +21,7 @@ export const decreaseCredit =  async ()=>{
         credits:{
           decrement:1
         }
-      }
+      } 
     })  }
 
   }
